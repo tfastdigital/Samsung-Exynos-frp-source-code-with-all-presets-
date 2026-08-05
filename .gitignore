@@ -1,0 +1,57 @@
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.userprefs
+*.vs/
+.vs/
+_ReSharper*
+*.resharper
+*.DotSettings.user
+*.ncrunch*
+*.localhistory
+*.dbmdl
+*.pdb
+*.cache
+*.log
+*.tmp
+*.tmp_* 
+*.DS_Store
+*.vscode/
+*.idea/
+*.sln.docstates
+
+# Exclude extracted runtime artifacts
+*.tmp
+*.session
+
+# Ignore temporary publishing folders
+publish/
+
+# Visual Studio auto-generated
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+
+# Ignore nuget packages and package folders
+*.nupkg
+packages/
+
+# Ignore build output from .NET
+*.dll
+*.exe
+*.zip
+*.vsix
+*.cache
+
+# IDE settings
+*.suo
+*.user
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini

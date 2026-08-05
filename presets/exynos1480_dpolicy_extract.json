@@ -1,0 +1,18 @@
+{
+  "deviceModel": "Galaxy A35 5G, A55 5G (Exynos 1480)",
+  "chipset": "exynos1480",
+  "exploitMethod": "CPDN",
+  "devicePathHint": "",
+  "firmwareParams": {
+    "base": 36775723008,
+    "offset": 12582912,
+    "variants": [
+      "dpolicy_extract"
+    ],
+    "usbDownRamBase": 3305111552,
+    "cpdnUsbBufBase": 36775723008,
+    "payloads": [],
+    "variantIndex": 0
+  },
+  "status": "updated_to_64bit_spec"
+}
