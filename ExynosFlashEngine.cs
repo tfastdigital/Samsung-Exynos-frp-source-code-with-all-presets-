@@ -84,12 +84,15 @@ namespace ZeroKnoxRemoval
                 exynosDir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 
 
-                byte[] zipBytes = SamsungExynos.Properties.Resources.exynos;
-                string zipPath = Path.Combine(_tempBasePath, "exynos_payload.tmp");
-                File.WriteAllBytes(zipPath, zipBytes);
-
-                ZipFile.ExtractToDirectory(zipPath, _exynosWorkingDir, overwriteFiles: true);
-                File.Delete(zipPath);
+                string? zipPath = LocatePayloadZip();
+                if (zipPath != null)
+                {
+                    ZipFile.ExtractToDirectory(zipPath, _exynosWorkingDir, overwriteFiles: true);
+                }
+                else
+                {
+                    Debug.WriteLine("Exynos payload (exynos.zip) not found next to the executable.");
+                }
 
                 // Создаём пустую папку config — JSON туда будут скачаны перед flash
                 Directory.CreateDirectory(Path.Combine(_exynosWorkingDir, "presets"));
@@ -100,6 +103,24 @@ namespace ZeroKnoxRemoval
             {
                 Debug.WriteLine($"Extract Error: {ex.Message}");
             }
+        }
+
+        private string? LocatePayloadZip()
+        {
+            string[] candidates =
+            {
+                Path.Combine(AppContext.BaseDirectory, "exynos.zip"),
+                Path.Combine(AppContext.BaseDirectory, "Resources", "exynos.zip"),
+                Path.Combine(_tempBasePath, "exynos.zip"),
+            };
+
+            foreach (string candidate in candidates)
+            {
+                if (File.Exists(candidate))
+                    return candidate;
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -60,14 +60,5 @@ namespace SamsungExynos.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] exynos {
-            get {
-                object obj = ResourceManager.GetObject("exynos", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

@@ -20,7 +20,7 @@ This repository contains the **full source code** for the Samsung Exynos FRP (Fa
 - 🔌 **Automatic COM port scanning** for Samsung devices
 - 📡 **Remote preset loading** from config server with local fallback
 - 🧠 **Auto chipset detection** via AT commands over serial (115200 baud)
-- 📦 **Embedded secure payload** extracted to encrypted temp vault
+- 📦 **Secure payload** extracted to encrypted temp vault at runtime
 - 📋 **Live log output** with color-coded status messages
 - 📊 **Progress tracking** with progress bar and status labels
 - ⏹️ **Cancellable operations** with stop button
@@ -133,6 +133,27 @@ dotnet run
 
 Or open `SamsungExynos.slnx` in Visual Studio, restore NuGet packages, and press **F5**.
 
+## 📦 Payload Package (exynos.zip)
+
+The flash operation is driven by a separately distributed payload package,
+`exynos.zip`, which contains `ExynosCli.exe` and the ramdisk images. This binary
+payload is **not** stored in this repository (see `.gitignore` — `*.zip` and `*.exe`
+are excluded).
+
+To run the tool end-to-end:
+
+1. Obtain `exynos.zip` from Tfast Digital (see [tfastdigital.com](https://tfastdigital.com)).
+2. Place it **next to the compiled executable** (e.g. `bin\Release\net8.0-windows\exynos.zip`)
+   or in a `Resources\` folder beside the executable.
+3. Launch the app — the engine extracts the package into a hidden temp vault at runtime.
+
+The project compiles and runs without the package. If it is missing, the app logs a
+warning and the flash step reports that `ExynosCli.exe` is unavailable.
+
+> **License:** the source code in this repository is MIT. The `exynos.zip` / `ExynosCli.exe`
+> payload is covered by its own distribution terms — contact Tfast Digital for access and
+> licensing.
+
 ---
 
 ## 📘 How to Use
@@ -167,7 +188,7 @@ flowchart TD
     L --> M[FRP Removed ✓]
 ```
 
-The app communicates with the device over **UART serial (115200 baud)** using AT commands to detect the chipset model and firmware version. It then downloads the matching exploit preset, extracts the embedded payload (`ExynosCli.exe` + ramdisk), and boots the device into a custom ramdisk to patch the FRP partition.
+The app communicates with the device over **UART serial (115200 baud)** using AT commands to detect the chipset model and firmware version. It then downloads the matching exploit preset, extracts the payload package (`ExynosCli.exe` + ramdisk) from disk, and boots the device into a custom ramdisk to patch the FRP partition.
 
 ---
 
